@@ -3,8 +3,14 @@
 import argparse
 
 def find_max_profit(prices):
-  pass
-
+    # set starting max to a profit that's at least possible (max may be < 0)
+    max_profit = prices[1] - prices[0]
+    # for every possible selling point, find the biggest spread
+    reversal = list(reversed(prices))
+    for pos, i in enumerate(reversal[:-1]): # can't sell at the first price
+        max_for_pair = i - min(reversal[pos + 1:]) # can't sell right after buying 
+        max_profit = max(max_profit, max_for_pair)
+    return max_profit
 
 if __name__ == '__main__':
   # This is just some code to accept inputs from the command line
